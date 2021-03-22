@@ -15,7 +15,7 @@ module SessionsHelper
 
   # Returns the user corresponding to the remember token cookie.
   def current_user
-    binding.pry
+    #binding.pry
     #debugger
     if (user_id = session[:user_id])
       @current_user ||= User.find_by(id: user_id)
