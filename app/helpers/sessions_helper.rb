@@ -11,6 +11,7 @@ module SessionsHelper
     user.remember
     cookies.permanent.encrypted[:user_id] = user.id
     cookies.permanent.encrypted[:remember_token] = user.remember_token
+    #p user.remember_digest == cookies[:remember_token]
   end
 
   # Returns the user corresponding to the remember token cookie.
@@ -22,7 +23,7 @@ module SessionsHelper
     elsif (user_id = cookies.encrypted[:user_id])
       #raise # The tests still pass, so this branch is currently tested.
       user = User.find_by(id: user_id)
-      if user && user.authenticated?(cookies.encrypted[:remember_token])
+      if user && user.authenticated?(:remember, cookies.encrypted[:remember_token])
         log_in user
         @current_user = user
       end

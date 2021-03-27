@@ -5,6 +5,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
   def setup
     @admin = users(:michael)
     @non_admin = users(:archer)
+    @not_activated = users(:malory)
   end
 
   test "index including pagination" do
@@ -38,5 +39,19 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     log_in_as(@non_admin)
     get users_path
     assert_select 'a', text: 'delete', count: 0
+  end
+
+  test "index activated users" do
+    # finish this test in sunday
+    log_in_as(@admin)
+    @not_activated.update_attribute(:activated, false)
+    @not_activated.reload
+    get users_path
+    assert_template 'users/index'
+    assert_select 'div.pagination', count: 2
+    first_page_of_users = User.paginate(page: 1)
+    assert_not first_page_of_users.include?(@not_activated)
+    second_page_of_users = User.paginate(page: 1)
+
   end
 end
