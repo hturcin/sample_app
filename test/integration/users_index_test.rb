@@ -50,8 +50,14 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     assert_template 'users/index'
     assert_select 'div.pagination', count: 2
     first_page_of_users = User.paginate(page: 1)
-    assert_not first_page_of_users.include?(@not_activated)
-    second_page_of_users = User.paginate(page: 1)
-
+    first_page_of_users.each do |user|
+      if user.activated?
+        assert_select 'a[href=?]', user_path(user), text: user.name
+      elsif !user.activated?
+        assert_no_match 'a[href=?]', user_path(user), text: user.name
+      end
+    end
   end
+
+
 end
