@@ -16,6 +16,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'pry-rails' # džani dodao za debugging - naredba za pokretanje: binding.pry
+gem 'figaro'
 
 group :development, :test do
   gem 'sqlite3', '~> 1.4'
