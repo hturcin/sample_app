@@ -11,6 +11,7 @@ module SessionsHelper
     user.remember
     cookies.permanent.encrypted[:user_id] = user.id
     cookies.permanent.encrypted[:remember_token] = user.remember_token
+    # cookies[:plain_text] = { value: "Pusi kite!", expires: 1.day }
     #p user.remember_digest == cookies[:remember_token]
   end
 

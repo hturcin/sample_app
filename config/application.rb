@@ -21,5 +21,8 @@ module SampleApp
 
     # Include the authenticity token in remote forms.
     config.action_view.embed_authenticity_token_in_remote_forms = true
+
+    # Default value of session cookie name
+    config.session_store :cookie_store, key: 'sample-app-hrv.com'
   end
 end
